@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloud-infrastructure-auditor"
+version = "0.1.0"
+description = "Cloud Infrastructure Auditor and Cost Optimizer"
+requires-python = ">=3.10"
+
+dependencies = [
+    "boto3",
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv",
+    "fastapi",
+    "uvicorn",
+    "pytest",
+    "typer",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

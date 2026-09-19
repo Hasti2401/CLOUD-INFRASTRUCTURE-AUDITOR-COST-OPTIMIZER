@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: cloud-infrastructure-auditor
+Version: 0.1.0
+Summary: Cloud Infrastructure Auditor and Cost Optimizer
+Requires-Python: >=3.10
+Requires-Dist: boto3
+Requires-Dist: pydantic
+Requires-Dist: pydantic-settings
+Requires-Dist: python-dotenv
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: pytest
+Requires-Dist: typer
