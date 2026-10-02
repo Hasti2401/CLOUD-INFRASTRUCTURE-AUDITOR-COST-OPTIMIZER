@@ -7,3 +7,4 @@ uvicorn
 pytest
 typer
 boto3
+PyYAML
