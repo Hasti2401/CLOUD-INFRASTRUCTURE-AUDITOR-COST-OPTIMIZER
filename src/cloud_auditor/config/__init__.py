@@ -1,0 +1,1 @@
+"""Configuration package for Cloud Infrastructure Auditor."""

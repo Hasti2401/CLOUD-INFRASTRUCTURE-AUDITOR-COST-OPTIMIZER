@@ -1,0 +1,4 @@
+aws:
+  account_id: ""
+  profile: "cloud-auditor"
+  region: "ap-south-1"
