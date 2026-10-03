@@ -3,3 +3,11 @@
 venv/
 .venv/
 Roadmap_Spread-sheet/
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.class
+
+# Pytest cache
+.pytest_cache/
+
