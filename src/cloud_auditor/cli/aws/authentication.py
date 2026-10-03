@@ -1,17 +1,17 @@
-import boto3
+"""AWS authentication utilities."""
 
-
-def create_aws_session(
-    profile_name: str = "cloud-auditor",
-    region_name: str = "ap-south-1",
-):
-    return boto3.Session(
-        profile_name=profile_name,
-        region_name=region_name,
-    )
+from .session import create_session
 
 
 def verify_aws_authentication(session):
+    """Verify AWS credentials using STS.
+
+    Args:
+        session: Existing boto3 Session.
+
+    Returns:
+        AWS caller identity information.
+    """
     sts_client = session.client("sts")
 
     return sts_client.get_caller_identity()
