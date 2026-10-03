@@ -1,7 +1,17 @@
 """Reusable AWS session and client utilities."""
 
 import boto3
+import logging
+from collections.abc import Callable
+from typing import TypeVar
 
+from botocore.config import Config
+
+from cloud_auditor.cli.aws.retry import retry_aws_operation
+
+logger = logging.getLogger(__name__)
+
+T = TypeVar("T")
 
 def create_session(
     profile_name: str = "cloud-auditor",
@@ -55,3 +65,36 @@ def get_regions(
         session = create_session()
 
     return session.get_available_regions(service_name)
+
+
+def create_aws_config(
+    connect_timeout: int = 10,
+    read_timeout: int = 30,
+) -> Config:
+    """Create the Boto3 configuration used by AWS clients."""
+
+    return Config(
+        connect_timeout=connect_timeout,
+        read_timeout=read_timeout,
+    )
+
+
+def execute_aws_operation(
+    operation: Callable[[], T],
+    max_attempts: int = 3,
+    base_delay: float = 1.0,
+) -> T:
+    """
+    Execute an AWS operation with retry and error handling.
+
+    Retryable AWS throttling errors are retried using
+    exponential backoff.
+    """
+
+    logger.debug("Executing AWS operation")
+
+    return retry_aws_operation(
+        operation=operation,
+        max_attempts=max_attempts,
+        base_delay=base_delay,
+    )

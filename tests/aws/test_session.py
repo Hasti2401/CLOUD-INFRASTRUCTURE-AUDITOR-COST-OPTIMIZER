@@ -6,6 +6,7 @@ from cloud_auditor.cli.aws.session import (
     get_regions,
 )
 
+from cloud_auditor.cli.aws.session import create_aws_config
 
 def test_create_session():
     with patch("cloud_auditor.cli.aws.session.boto3.Session") as mock_session:
@@ -64,3 +65,20 @@ def test_get_regions_creates_session_when_none_is_provided():
 
         mock_session.get_available_regions.assert_called_once_with("ec2")
         assert regions == ["ap-south-1"]
+
+
+def test_default_aws_timeouts():
+    config = create_aws_config()
+
+    assert config.connect_timeout == 10
+    assert config.read_timeout == 30
+
+
+def test_custom_aws_timeouts():
+    config = create_aws_config(
+        connect_timeout=5,
+        read_timeout=15,
+    )
+
+    assert config.connect_timeout == 5
+    assert config.read_timeout == 15
